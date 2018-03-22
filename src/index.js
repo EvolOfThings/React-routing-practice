@@ -27,5 +27,22 @@ axios.interceptors.response.use(response => {
     return Promise.reject(error);
 });
 
-ReactDOM.render( <App />, document.getElementById( 'root' ) );
+const rootEl = document.getElementById('root')
+
+ReactDOM.render(
+  <App />,
+  rootEl
+)
+
+if (module.hot) {
+  module.hot.accept('./App', () => {
+    const NextApp = require('./App').default
+    ReactDOM.render(
+      <NextApp />,
+      rootEl
+    )
+  })
+}
+
 registerServiceWorker();
+
