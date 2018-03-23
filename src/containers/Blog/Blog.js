@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
-import { Route, NavLink } from 'react-router-dom';
+import { Route, NavLink, Switch } from 'react-router-dom';
 
 import './Blog.css';
 import Posts from './Posts/Posts';
@@ -33,13 +33,15 @@ class Blog extends Component {
                         </ul>
                     </nav>
                 </header>
-                {/*<Route path="/" exact render={() => <h1>Home</h1>} />
-                  <Route path="/" exact render={() => <h1>Home</h1>} /> */}
-                  <Route path="/" exact component={Posts} />
-              {/*dynamically changing the id, since we need to id the post.
-              positioning the id parameter is important, it should be after new-post*/}
-                  <Route path="/new-post" component={NewPost} />
-                  <Route path="/:id" exact component={FullPost} />
+                <Switch>
+                      {/*<Route path="/" exact render={() => <h1>Home</h1>} />
+                        <Route path="/" exact render={() => <h1>Home</h1>} /> */}
+                        <Route path="/" exact component={Posts} />
+                    {/*dynamically changing the id, since we need to id the post.
+                    positioning the id parameter is important, it should be after new-post*/}
+                        <Route path="/new-post" component={NewPost} />
+                        <Route path="/:id" exact component={FullPost} />
+                </Switch>
             </div>
         );
     }
