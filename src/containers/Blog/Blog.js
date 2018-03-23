@@ -5,6 +5,7 @@ import { Route, NavLink } from 'react-router-dom';
 import './Blog.css';
 import Posts from './Posts/Posts';
 import NewPost from './NewPost/NewPost';
+import FullPost from './FullPost/FullPost';
 
 class Blog extends Component {
     render () {
@@ -16,11 +17,12 @@ class Blog extends Component {
                             <li><NavLink
                                 to="/"
                                 exact
-                                activeClassName='my-active'
+                                /*activeClassName='my-active'
                                 activeStyle={{
                                     color: 'fa923f',
                                     textDecoration: 'underline'
-                                }}>Home</NavLink></li>
+                                }}*/
+                                >Home</NavLink></li>
                             <li><NavLink to={{
                                 // pathname: this.props.match.url + '/new-post'  ===> relative path
                                 pathname: '/new-post',
@@ -34,7 +36,10 @@ class Blog extends Component {
                 {/*<Route path="/" exact render={() => <h1>Home</h1>} />
                   <Route path="/" exact render={() => <h1>Home</h1>} /> */}
                   <Route path="/" exact component={Posts} />
+              {/*dynamically changing the id, since we need to id the post.
+              positioning the id parameter is important, it should be after new-post*/}
                   <Route path="/new-post" component={NewPost} />
+                  <Route path="/:id" exact component={FullPost} />
             </div>
         );
     }
