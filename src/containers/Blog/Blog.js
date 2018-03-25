@@ -44,10 +44,12 @@ class Blog extends Component {
                     positioning the id parameter is important, it should be after new-post*/}
                         {this.state.auth ? <Route path="/new-post" component={NewPost} /> : null }
                         <Route path="/posts" component={Posts} />
-                        <Redirect from="/" to="/posts" />
-                        {/*Does same job as Redirect component
-                        <Route path="/" component={Posts} />
-                        */}
+                        <Route render={() => <h1>Not Found!</h1>} />
+                        {/* unknown route are caught by Redirect bcuz it also catches all
+                            the root route so it won't work together unless root route is different */}
+                        {/* <Redirect from="/" to="/posts" /> */}
+                        {/* Does same job as Redirect component */}
+                        {/* <Route path="/" component={Posts} /> */}
                 </Switch>
             </div>
         );
