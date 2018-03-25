@@ -10,8 +10,19 @@ class FullPost extends Component {
 
     componentDidMount () {
         console.log(this.props);
+        this.loadData();
+
+    }
+
+//afer nested routing, the posts doesnt load because of cDMount so we load Data in a method below
+//and execute the method in cdM and cdU [when we click on different post so it upadtes]
+    componentDidUpdate () {
+        this.loadData();
+    }
+
+    loadData () {
         if ( this.props.match.params.id ) {
-            if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id) ) {
+            if ( !this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !==  +this.props.match.params.id) ) { // ' + ' converts string to num
                 axios.get( '/posts/' + this.props.match.params.id )
                     .then( response => {
                         // console.log(response);
@@ -22,7 +33,7 @@ class FullPost extends Component {
     }
 
     deletePostHandler = () => {
-        axios.delete('/posts/' + this.props.id)
+        axios.delete('/posts/' + this.props.match.params.id)
             .then(response => {
                 console.log(response);
             });
@@ -30,7 +41,7 @@ class FullPost extends Component {
 
     render () {
         let post = <p style={{ textAlign: 'center' }}>Please select a Post!</p>;
-        if ( this.props.id ) {
+        if ( this.props.match.params.id ) {
             post = <p style={{ textAlign: 'center' }}>Loading...!</p>;
         }
         if ( this.state.loadedPost ) {
@@ -42,7 +53,6 @@ class FullPost extends Component {
                         <button onClick={this.deletePostHandler} className="Delete">Delete</button>
                     </div>
                 </div>
-
             );
         }
         return post;
