@@ -7,6 +7,10 @@ import Posts from './Posts/Posts';
 import NewPost from './NewPost/NewPost';
 
 class Blog extends Component {
+    state = {
+        auth:false
+    }
+
     render () {
         return (
             <div className="Blog">
@@ -38,7 +42,7 @@ class Blog extends Component {
 
                     {/*dynamically changing the id, since we need to id the post.
                     positioning the id parameter is important, it should be after new-post*/}
-                        <Route path="/new-post" component={NewPost} />
+                        {this.state.auth ? <Route path="/new-post" component={NewPost} /> : null }
                         <Route path="/posts" component={Posts} />
                         <Redirect from="/" to="/posts" />
                         {/*Does same job as Redirect component
