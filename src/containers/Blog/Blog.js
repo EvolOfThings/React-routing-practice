@@ -4,11 +4,16 @@ import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 
 import './Blog.css';
 import Posts from './Posts/Posts';
-import NewPost from './NewPost/NewPost';
+import asyncComponent from '../../hoc/asyncComponent';
+// import NewPost from './NewPost/NewPost';
+
+const AsyncNewPost = asyncComponent(() => {
+    return import('./NewPost/NewPost');
+});
 
 class Blog extends Component {
     state = {
-        auth:false
+        auth:true
     }
 
     render () {
@@ -42,7 +47,7 @@ class Blog extends Component {
 
                     {/*dynamically changing the id, since we need to id the post.
                     positioning the id parameter is important, it should be after new-post*/}
-                        {this.state.auth ? <Route path="/new-post" component={NewPost} /> : null }
+                        {this.state.auth ? <Route path="/new-post" component={AsyncNewPost} /> : null }
                         <Route path="/posts" component={Posts} />
                         <Route render={() => <h1>Not Found!</h1>} />
                         {/* unknown route are caught by Redirect bcuz it also catches all
